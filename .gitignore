@@ -34,6 +34,13 @@ hello
 bonjour
 a.out
 
+# 忽略以Ex开头的无扩展名执行文件
+# Ignore executable files starting with Ex (no extension)
+Ex[0-99]*
+!Ex*.cpp
+!Ex*.h
+!Ex*/
+
 # Debug files
 *.dSYM/
 *.su
