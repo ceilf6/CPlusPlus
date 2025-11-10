@@ -2,6 +2,7 @@
 这道题目是用于进一步理解C++的工程文件架构的以及C++作为编译静态语言的编译特性
 首先按照题目的要求创建项目并进行编译会报错无法找到bonjour这个文件 error: use of undeclared identifier 'function'
 因为从主main.cpp入口进入后直接运行了bonjour但是并没有引入这个文件的声明
+
 改正方案有两种:（可以看Ex3文件夹）
 - 1.直接在main.cpp上面声明 void function(); 即可
 - 2.通过自定义头文件 decFunction.h 中统一进行声明管理，然后在 main.cpp 中进行导入即可
