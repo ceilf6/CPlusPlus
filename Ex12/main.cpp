@@ -11,7 +11,7 @@ int main()
     int &refA = A;
     int &refB = B;
 
-    inverseByStr(strA, strB);
+    inverseByPtr(strA, strB);
     inverseByRef(refA, refB);
 
     return 0;
