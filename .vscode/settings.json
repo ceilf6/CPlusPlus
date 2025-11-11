@@ -75,6 +75,8 @@
         "vector": "cpp",
         "algorithm": "cpp",
         "__verbose_abort": "cpp",
-        "print": "cpp"
+        "print": "cpp",
+        "deque": "cpp",
+        "execution": "cpp"
     }
 }
