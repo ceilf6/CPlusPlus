@@ -1,5 +1,6 @@
 #include <iostream>
 #include "fraction.hpp"
+#include "fractionPatch.hpp"
 
 using namespace std;
 using namespace MATH;
@@ -44,13 +45,46 @@ int main()
     r.afficher();
     cout << endl;
 
+    // Ex20 =================================
+
+    cout << "\n==== E20 - 测试运算符重载 ====\n";
+    cout << "\n---- 测试 f1 + f2 (Fraction + Fraction) ----\n";
+    Fraction f8(1, 2);
+    Fraction f9(1, 3);
+    cout << "f8 = " << f8 << ", f9 = " << f9 << endl;
+    Fraction f10 = f8 + f9;
+    cout << "f8 + f9 = " << f10 << endl;
+
+    cout << "\n---- 测试 Fraction + int 和 int + Fraction ----\n";
+    Fraction f11(2, 3);
+    cout << "f11 = " << f11 << endl;
+    Fraction f12 = f11 + 2;
+    cout << "f11 + 2 = " << f12 << endl;
+    Fraction f13 = 3 + f11;
+    cout << "3 + f11 = " << f13 << endl;
+
+    cout << "\n---- 测试 ++f 和 f++ ----\n";
+    Fraction f14(3, 4);
+    cout << "原始值 f14 = " << f14 << endl;
+
+    cout << "前缀 ++f14 = " << ++f14 << endl;
+    cout << "执行后 f14 = " << f14 << endl;
+
+    Fraction f15(5, 6);
+    cout << "\n原始值 f15 = " << f15 << endl;
+    cout << "后缀 f15++ = " << f15++ << " (返回旧值)" << endl;
+    cout << "执行后 f15 = " << f15 << endl;
+
+    cout << "\n---- 测试 cout << f (已在上面使用) ----\n";
+    cout << "链式输出测试: " << f8 << " + " << f9 << " = " << f10 << endl;
+
     cout << "\n---- 程序结束 ----\n";
 
     return 0;
 }
 
 /*
-结果：
+Ex19结果：
 
 + 构造 Fraction 对象: 0x16b5e2fb4 => 3/4
 + 构造 Fraction 对象: 0x16b5e2fac => 1/6
@@ -86,4 +120,41 @@ int main()
 - 析构 Fraction 对象: 0x16b5e2f68 => 11/12
 - 析构 Fraction 对象: 0x16b5e2fac => 1/6
 - 析构 Fraction 对象: 0x16b5e2fb4 => 3/4
+*/
+
+/*
+Ex20结果：
+
+==== E20 - 测试运算符重载 ====
+
+---- 测试 f1 + f2 (Fraction + Fraction) ----
++ 构造 Fraction 对象: 0x16d45ef60 => 1/2
++ 构造 Fraction 对象: 0x16d45ef58 => 1/3
+f8 = 1/2, f9 = 1/3
++ 构造 Fraction 对象: 0x16d45ef50 => 5/6
+f8 + f9 = 5/6
+
+---- 测试 Fraction + int 和 int + Fraction ----
++ 构造 Fraction 对象: 0x16d45ef48 => 2/3
+f11 = 2/3
++ 构造 Fraction 对象: 0x16d45ef40 => 8/3
+f11 + 2 = 8/3
++ 构造 Fraction 对象: 0x16d45ef38 => 11/3
+3 + f11 = 11/3
+
+---- 测试 ++f 和 f++ ----
++ 构造 Fraction 对象: 0x16d45ef30 => 3/4
+原始值 f14 = 3/4
+前缀 ++f14 = 7/4
+执行后 f14 = 7/4
++ 构造 Fraction 对象: 0x16d45ef28 => 5/6
+
+原始值 f15 = 5/6
+后缀 f15++ = + 拷贝构造 Fraction: 0x16d45ef20 <= 0x16d45ef28
+5/6 (返回旧值)
+- 析构 Fraction 对象: 0x16d45ef20 => 5/6
+执行后 f15 = 11/6
+
+---- 测试 cout << f (已在上面使用) ----
+链式输出测试: 1/2 + 1/3 = 5/6
 */
