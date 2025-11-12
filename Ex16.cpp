@@ -28,7 +28,7 @@ void affiche_tab(const struct personne *p, int n = -1) // 传p[]会自动退化�
 {
     if (n == -1)
     {
-        // n = sizeof(*p); 这样拿到的只是首元素的大小，C++无法推测数组的结束（除非有标识符）
+        // n = sizeof(*p); 这样拿到的只是首元素的大小，C++无法推测数组的结束（除非用 vector 或者有标识符）
         std::cout << "请传入数组长度" << std::endl;
     }
     for (int i = 0; i < n; i++)
