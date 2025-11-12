@@ -6,12 +6,12 @@ struct compte
     int solde;
 };
 
-// 注意函数得返回引用 int& 否则后续不能对返回进行操作
+// 注意函数得返回引用 & 否则后续不能对返回进行操作
 int &operation(struct compte *p, std::string id, int n)
 {
     for (int i = 0; i < n; i++) // 题目要求，否则用 map + contains 判断更快
         if (p[i].id == id)
-            return p[i].solde; // 返回数组[i]是直接返回的引用
+            return p[i].solde; // 当函数签名有 & 时返回数组[i]是直接返回的引用
                                // 函数内部不需要操作，直接返回就好
 
     throw std::runtime_error("Not found!");
