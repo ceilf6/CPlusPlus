@@ -40,7 +40,7 @@ void affiche_tab(const struct personne *p, int n = -1) // 传p[]会自动退化�
 // 这个函数也可以直接写在 struct 里面作为构造函数（函数名必须要和结构体名相同，而且注意设置默认值）
 void init_struct(struct personne *p, const char *name, unsigned int age)
 {
-    // 题目要求不能用 strcpy 函数，就只能一个个循环过去迁移
+    // 题目要求不能用 strcpy 函数，且字符串是用 char[] 就只能一个个循环过去迁移
     int i = 0;
     while (name[i] != '\0' && i < 29)
     {
@@ -53,6 +53,7 @@ void init_struct(struct personne *p, const char *name, unsigned int age)
 
 void copy_struct(const struct personne *src, struct personne *dest)
 {
+    // 由于用的 char[] 所以得解构赋值，string 的话直接 = 即可
     int i = 0;
     while (src->nom[i] != '\0' && i < 29)
     {
