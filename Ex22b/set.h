@@ -1,13 +1,14 @@
 #ifndef _SET_H
 #define _SET_H
 
+#include "config.hpp"
 #include <iostream>
 #include <string>
 #include <initializer_list>
 #include <array>
 #include <cstdlib>
-using namespace std;
 
+using namespace std;
 namespace Set
 {
 	// classe pour g�rer les exceptions dans le set
@@ -106,7 +107,7 @@ namespace Set
 	class Jeu
 	{
 		// 注意：这里构造的是对象指针数组没问题，但如果构造的是对象数组就需要初始化器语法，否则编译器不知道该如何创建这个数组
-		const Carte *cartes[81];
+		const Carte *cartes[config::NB_CARTES];
 		/* d�sactivation du constructeur de recopie et
 		et de l'op�rateur d'affectation */
 		// 禁止了 Jeu 的拷贝和赋值，确保场上只有一个 Jeu 实例
@@ -126,8 +127,10 @@ namespace Set
 			return instance;
 		}
 
+		// size_t 无符号整数类型，用于表示永远不会为负的值（与底层操作系统有关，例如64位系统那么 size_t 即unsigned long（64 bit））
 		const Carte &getCarte(size_t i) const;
-		size_t getNbCartes() const { return 81; }
+		// 通过 config 去统一管理
+		size_t getNbCartes() const { return config::NB_CARTES; }
 
 		class Iterator
 		{
@@ -153,7 +156,7 @@ namespace Set
 		Iterator first()
 		{
 			const Carte **c = &cartes[0];
-			return Iterator(c, 81);
+			return Iterator(c, config::NB_CARTES);
 		}
 
 		class IteratorBis
@@ -205,7 +208,7 @@ namespace Set
 			}
 		};
 		const_iterator begin() const { return const_iterator(*this, 0); }
-		const_iterator end() const { return const_iterator(*this, 81); }
+		const_iterator end() const { return const_iterator(*this, config::NB_CARTES); }
 
 		class FormeIterator
 		{
@@ -241,9 +244,9 @@ namespace Set
 		const Carte **cartes; // points over a dynamically allocated array
 		size_t nb;			  // number of elements to consider in the array
 	public:
-		Pioche(Jeu &j) : nb(81)
+		Pioche(Jeu &j) : nb(config::NB_CARTES)
 		{
-			cartes = new const Carte *[81]; // dynamically allocate an array of pointers
+			cartes = new const Carte *[config::NB_CARTES]; // dynamically allocate an array of pointers
 			// copy the adresses of the Carte which are contained in Jeu j
 			for (size_t i = 0; i < j.getNbCartes(); i++)
 				cartes[i] = &j.getCarte(i);
