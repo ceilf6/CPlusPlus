@@ -466,7 +466,9 @@ namespace Set
 		 *
 		 * 异常：如果 i >= 81，抛出 SetException
 		 *
-		 * const 成员函数：不修改 Jeu 对象的状态
+		 * 前面的 const 确保函数返回对象后这个对象不会变
+		 * 后面的 const 确保成员函数内部不会修改当前类的成员
+		 * 通过 const 加固封装的密闭性
 		 */
 		const Carte &getCarte(size_t i) const;
 
@@ -487,6 +489,11 @@ namespace Set
 		// ================================================================
 
 		/**
+		 * 将迭代器类写在 Jeu 类的内部：
+		 * - 1. 只能Jeu遍历其管理的卡牌（若是公共API的话可能会被滥用）
+		 * - 2. 这样迭代器类访问私有成员就不受限制了
+		 * - 3. 后续拓展代码支持多版本迭代（如普通遍历、索引遍历、按 Forme 过滤遍历等）的时候都能共享相同的上下文而不冲突，还可以访问相同的私有资源。
+		 *
 		 * Iterator: 基于指针的迭代器（方式一）
 		 *
 		 * 设计模式：迭代器模式 (Iterator Pattern)
@@ -508,6 +515,8 @@ namespace Set
 		 *       cout << it.getCurrentItem();
 		 *       it.next();
 		 *   }
+		 *
+		 * (迭代器的作用远不止于此：像在JS中co库实现异步管理的本质就是迭代器)
 		 */
 		class Iterator
 		{
@@ -550,7 +559,7 @@ namespace Set
 			/**
 			 * getCurrentItem: 获取当前卡牌
 			 *
-			 * 返回：当前指向的 Carte 对象的引用
+			 * 返回：当前指向的 Carte 对象的引用（返回的是复制的对象还是引用是看函数上面有没有 & ）
 			 *
 			 * 为什么是 **currentCarte？
 			 * - currentCarte 是指向指针的指针（Carte**）
