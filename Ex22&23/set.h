@@ -952,7 +952,7 @@ namespace Set
 		 * 参数：
 		 * - j: Jeu 对象的引用（不是 const，因为可能需要获取非 const 引用）
 		 *
-		 * 注意：虽然参数不是 explicit，但建议加上以防止隐式转换
+		 * 注意：原先没有 explicit 关键词，但建议加上以防止隐式转换
 		 *
 		 * 初始化步骤：
 		 * 1. 分配大小为 NB_CARTES 的指针数组
@@ -962,7 +962,7 @@ namespace Set
 		 * 时间复杂度：O(n)，n = 81
 		 * 空间复杂度：O(n)，分配 81 个指针
 		 */
-		Pioche(Jeu &j) : nb(config::NB_CARTES)
+		explicit Pioche(Jeu &j) : nb(config::NB_CARTES)
 		{
 			// 动态分配指针数组
 			cartes = new const Carte *[config::NB_CARTES];
@@ -1017,6 +1017,7 @@ namespace Set
 		 * - 避免数组元素移动（O(n)操作）
 		 * - 利用"最后一张卡填补空位"技巧
 		 * - 保持剩余卡牌在数组前 nb 个位置
+		 * （像插入排序的分段思想）
 		 *
 		 * 实现在 set.cpp 中
 		 */
@@ -1256,11 +1257,12 @@ namespace Set
 		void print(ostream &f) const;
 
 		// ====================================================================
-		// Ex23: STL 风格迭代器 (STL-style Iterator)
+		// STL 风格迭代器 (STL-style Iterator)
 		// ====================================================================
 
 		/**
 		 * const_iterator: 符合 C++ 标准库风格的迭代器
+		 * （这个是plateau内的迭代器，不是Jeu中的，每个容器类内都自己实现迭代器类，体现了面向对象的设计理念）
 		 *
 		 * 设计目标：
 		 * - 兼容 C++11 的 range-based for 循环
