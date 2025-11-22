@@ -42,7 +42,7 @@ namespace oop
     ostream &operator<<(ostream &f, Attribute2 att2);
     extern initializer_list<Attribute1> Attribute1s;
 
-    // 1. 业务实体类
+    // 业务实体类
     class Entity1
     {
         // 私有: 属性，构造函数(初始化器)，拷贝、赋值、析构函数默认，友元管理类
@@ -62,7 +62,38 @@ namespace oop
         Attribute2 getAtt2() const { return attribute2; }
     };
 
-    // 2. 实体管理类 - 组合关系 - 拥有实体：构建时创建实体数组，析构时销毁实体数组
+    // 业务实体类2 - 关联关系 - 拥有指针，但是不是一部分，且不负责生命周期
+    class Entity2
+    {
+    private:
+        const Entity1 *relatedEntity;
+        const Attribute1 att1;
+
+    public:
+        Entity2(const Entity1 *ent1, const Attribute1 attribute1) : relatedEntity(ent1), att1(attribute1) {}
+
+        bool isPaired() const; // 演示一个工厂函数的功能：外面传一个想要的att1，那么生成一个判断ent1实例中att1属性是否为想要的功能函数
+
+        ~Entity2() = default;
+    };
+
+    // 业务实体类3 - 聚合关系 - 是一部分，但是不负责其生命周期
+    class Entity3
+    {
+    private:
+        const Entity1 **entities1;
+        const Attribute2 att2;
+        const size_t NbEntities1;
+
+    public:
+        Entity3(const Entity1 **ent1s, const Attribute2 attribute2, const size_t Nb) : entities1(ent1s), att2(attribute2), NbEntities1(Nb) {};
+
+        bool anyPaired() const;
+
+        ~Entity3() = default;
+    };
+
+    // 实体管理类 - 组合关系 - 拥有实体：构建时创建实体数组，析构时销毁实体数组
     class EntityManager
     {
     private:

@@ -24,6 +24,23 @@ namespace oop
         return f;
     }
 
+    bool Entity2::isPaired() const
+    {
+        return relatedEntity->getAtt1() == att1;
+    }
+
+    bool Entity3::anyPaired() const
+    {
+        for (size_t i = 0; i < NbEntities1; i++)
+        {
+            if (entities1[i]->getAtt2() == att2)
+            {
+                return true;
+            }
+        }
+        return false;
+    }
+
     // 组合关系：管理类拥有实体：构建时创建实体数组，析构时销毁实体数组
     EntityManager::EntityManager()
     {

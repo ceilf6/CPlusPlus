@@ -253,7 +253,7 @@ La classe HospitalManager est responsable de la durée de vie de la classe Docto
 类A只保存类B的指针/引用，不负责类B的生命周期，所以他们是关联关系
 La classe A référence la classe B au moyen de pointeurs / références, sans en gérer la durée de vie ; il s’agit donc d’une association.
 
-类A拥有类B，但是不负责类B的生命周期，所以他们是聚合关系
+类A拥有类B，语义上B是A的一部分（通常表现为A中有B的指针数组），但是不负责类B的生命周期，所以他们是聚合关系
 La classe A agrège des objets de la classe B, mais elle n’en gère pas la durée de vie ; il s’agit donc d’une relation d’agrégation.
 
 ---
