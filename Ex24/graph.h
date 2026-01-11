@@ -34,6 +34,21 @@ public:
 class Graph
 {
     vector<list<unsigned int>> adj; // adjacency 邻接
+    /*
+    std::vector 是 STL 中最常用的顺序容器 - 一个动态数组
+    内存连续、支持下标访问、能自动扩容
+
+    此处以 list<unsigned int> 作为数组的元素类型
+    其中
+
+    std::list 是标准库的双向链表，支持
+    push_back() 尾部插入
+    push_front() 头部插入
+    pop_back() 尾部删除
+    pop_front() 头部删除
+    insert(it, x) 在it前插入
+    size() 元素个数
+    */
     string name;
 
     void checkVertex(unsigned int i) const;
