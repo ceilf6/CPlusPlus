@@ -1,5 +1,10 @@
 #include "graph.h"
 #include <algorithm>
+/*
+1. find(begin,end,value): 线形查找
+    在 [begin,end) 的范围内找第一个等于 value 的元素的下标
+2. lower_bound: 二分查找下界 - 第一个不小于的
+*/
 #include <sstream>
 
 void Graph::checkVertex(unsigned int i) const // 通过 size 判断是否越界
