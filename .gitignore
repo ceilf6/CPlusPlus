@@ -86,3 +86,34 @@ build/
 .DS_Store
 
 _CONFIG.sh
+
+# 忽略所有文件
+*
+
+# 但不忽略目录
+!*/
+
+# 保留常见源码文件
+!*.c
+!*.cpp
+!*.h
+!*.hpp
+!*.md
+!Makefile
+!.gitignore
+!*.out
+!.vscode/
+
+!*.js
+
+!*.py
+
+!*.jpg
+!*.png
+!*.pdf
+!*.pptx
+!*.ppt
+
+!*.jpeg
+
+!*.json
