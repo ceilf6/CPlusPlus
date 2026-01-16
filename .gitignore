@@ -117,3 +117,5 @@ _CONFIG.sh
 !*.jpeg
 
 !*.json
+
+.claude/
