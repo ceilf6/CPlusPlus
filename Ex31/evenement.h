@@ -23,6 +23,10 @@ namespace TIME
 
         // 多态显示
         virtual void afficher(std::ostream &f = std::cout) const = 0;
+        /*
+        =0 表示这是一个纯虚函数、不能被实例化，所有具体子类都必须实现 afficher()
+        const 就是之前说的修饰成员函数的行为约束：函数体内不能修改该类对象的非mutable成员变量
+        */
 
         // Prototype：多态深拷贝
         /*
