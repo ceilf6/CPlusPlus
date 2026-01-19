@@ -45,14 +45,19 @@ namespace TIME
             reference operator*() const { return *(*it); }
             pointer operator->() const { return it->get(); }
 
+            /*
+            it: 真正指向当前元素的迭代器
+            this: Iterator* 指向迭代器对象本身
+            *this: Iterator& 当前迭代器对象
+            */
             Iterator &operator++()
             {
                 ++it;
-                return *this;
+                return *this; // 并不是返回元素而是将迭代器往前
             }
             Iterator operator++(int)
             {
-                Iterator tmp(*this);
+                Iterator tmp(*this); // 拷贝：tmp.it指向原来的位置
                 ++(*this);
                 return tmp;
             }

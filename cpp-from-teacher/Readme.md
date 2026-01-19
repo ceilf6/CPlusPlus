@@ -44,6 +44,20 @@ gen(); // 返回 1
 gen(); // 返回 2
 
 ```
+```JavaScript
+// JS: 函数即对象
+function makeGenerator() {
+    let count = 0;
+    return function () {
+        return ++count;
+    };
+}
+
+const gen = makeGenerator();
+
+console.log(gen()); // 1
+console.log(gen()); // 2
+```
 
 ### B. 1 个或多个参数
 
@@ -82,7 +96,22 @@ struct IsGreater {
         return n > threshold;
     }
 };
+/*
+等于都是 public 的 class
+class IsGreater {
+    public:
+    // private:
+    int threshold;
 
+    // public:
+    IsGreater(int t) : threshold(t) {}
+
+    // 带 1 个参数的函数对象
+    bool operator()(int n) const {
+        return n > threshold;
+    }
+};
+*/
 int main() {
     std::vector<int> nums = {1, 5, 8, 10, 2};
     // 查找第一个大于 7 的数
