@@ -1,6 +1,3 @@
-#ifndef CONTAINER_H
-#define CONTAINER_H
-
 #include <stdexcept>
 #include <cstddef>
 
@@ -59,5 +56,3 @@ public:
         return element(size() - 1);
     }
 };
-
-#endif // CONTAINER_H
