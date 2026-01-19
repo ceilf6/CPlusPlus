@@ -23,7 +23,10 @@ public:
     {
     public:
         iterator(typename std::set<std::pair<A, B>>::const_iterator it = typename std::set<std::pair<A, B>>::const_iterator())
-            : std::set<std::pair<A, B>>::const_iterator(it) {}
+            // 当 T::value_type x 类型名依赖于模板参数 时：对 std::set<std::pair<A, B>>::const_iterator 加 typename 告诉编译器这是一个类型名
+            : std::set<std::pair<A, B>>::const_iterator(it)
+        {
+        }
     };
 
     iterator begin() const { return iterator(couples.begin()); }
