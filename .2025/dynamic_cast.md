@@ -10,5 +10,5 @@ Base* base = getSomeBase();
 
 Derived* derived = dynamic_cast<Derived*>(base); // 向下转换需要检查，因为派生类可能有基类没有的细节
 if (derived != nullptr) {
-    derived -> attributeFromDerived();
+    (*derived).attributeFromDerived();
 }
