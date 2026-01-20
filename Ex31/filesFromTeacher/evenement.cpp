@@ -48,4 +48,10 @@ void TIME::Agenda::afficher(std::ostream &f) const
     f << "##### FIN AGENDA #####" << "\n";
 }
 
-TIME::Agenda::~Agenda() {}
+TIME::Agenda::~Agenda()
+{
+    for (Evt *evt : tab)
+    {
+        delete evt;
+    }
+}
