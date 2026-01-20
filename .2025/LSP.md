@@ -13,3 +13,4 @@ Liskov Substitution Principle 里氏替换原则
 
 2. 基类的析构函数必须是 virtual 虚函数
 从而确保调用子类的析构函数
+    但是如果子类没有维护额外资源，那么子类也不需要写析构
