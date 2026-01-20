@@ -6,10 +6,13 @@
 #include <vector>
 #include "timing.h"
 
-namespace TIME {
-    class Evt {
+namespace TIME
+{
+    class Evt
+    {
     private:
         std::string sujet;
+
     public:
         Evt(const std::string &s) : sujet(s) {}
 
@@ -18,12 +21,13 @@ namespace TIME {
         virtual void afficher(std::ostream &f = std::cout) const = 0;
     };
 
-    class EvtPj : public Evt {
+    class EvtPj : public Evt
+    {
         Date debut;
         Date fin;
+
     public:
-        EvtPj(const Date &d, const Date &f, const std::string &s) :
-                Evt(s), debut(d), fin(f) {}
+        EvtPj(const Date &d, const Date &f, const std::string &s) : Evt(s), debut(d), fin(f) {}
 
         const Date &getDateDebut() const { return debut; }
 
@@ -32,9 +36,11 @@ namespace TIME {
         void afficher(std::ostream &f = std::cout) const;
     };
 
-    class Evt1j : public Evt {
+    class Evt1j : public Evt
+    {
     private:
         Date date;
+
     public:
         Evt1j(const Date &d, const std::string &s) : Evt(s), date(d) {}
 
@@ -43,37 +49,39 @@ namespace TIME {
         virtual void afficher(std::ostream &f = std::cout) const;
     };
 
-
-    class Evt1jDur : public Evt1j {
+    class Evt1jDur : public Evt1j
+    {
     private:
         Horaire debut;
         Duree duree;
+
     public:
         Evt1jDur(const Date &d, const std::string &s,
-                 const Horaire &h, const Duree& t) :
-                Evt1j(d, s), // appel au constructeur de la classe de base
-                debut(h), duree(t) {}
+                 const Horaire &h, const Duree &t) : Evt1j(d, s), // appel au constructeur de la classe de base
+                                                     debut(h), duree(t)
+        {
+        }
 
         const Horaire &getHoraire() const { return debut; }
 
         const Duree &getDuree() const { return duree; }
 
         void afficher(std::ostream &f = std::cout) const;
-
     };
 
-
-    class Rdv : public Evt1jDur {
+    class Rdv : public Evt1jDur
+    {
         std::string personne;
         std::string lieu;
+
     public:
         Rdv(const Date &d, const std::string &s,
             const Horaire &h, const Duree &dur,
-            const std::string &p, const std::string &l) :
-                Evt1jDur(d, s, h, dur),
-                personne(p), lieu(l) {}
+            const std::string &p, const std::string &l) : Evt1jDur(d, s, h, dur),
+                                                          personne(p), lieu(l) {}
 
-        Rdv &operator=(const Rdv &r) {
+        Rdv &operator=(const Rdv &r)
+        {
             Evt1jDur *x = this;
             *x = r; // recopie de la partie Evt1jDur
             personne = r.personne;
@@ -90,39 +98,44 @@ namespace TIME {
         void afficher(std::ostream &f = std::cout) const;
     };
 
-    class Agenda {
+    class Agenda
+    {
         std::vector<Evt *> tab;
+
     public:
-        class iterator : public std::vector<Evt *>::iterator {
+        // 正向可变迭代器
+        class iterator : public std::vector<Evt *>::iterator
+        {
         public:
-            Evt &operator*() const {
+            // 重载解引用
+            Evt &operator*() const
+            {
                 return *std::vector<Evt *>::iterator::operator*();
             }
 
-        private:
+        private: // 通过私有构造函数和friend声明，确保迭代器只能由Agenda构建，防止外部直接操作底层vector迭代器
             friend class Agenda;
-
-            iterator(const std::vector<Evt *>::iterator &it) :
-                    std::vector<Evt *>::iterator(it) {}
+            iterator(const std::vector<Evt *>::iterator &it) : std::vector<Evt *>::iterator(it) {}
         };
 
         iterator begin() { return iterator(tab.begin()); }
 
         iterator end() { return iterator(tab.end()); }
 
-        class const_iterator : public std::vector<Evt *>::const_iterator {
+        // 2. 只读正向迭代器
+        class const_iterator : public std::vector<Evt *>::const_iterator
+        {
         public:
-            const Evt &operator*() const {
+            const Evt &operator*() const
+            {
                 return *std::vector<Evt *>::const_iterator::operator*();
             }
-
+            // 注意 const
         private:
             friend class Agenda;
-
-            const_iterator(const std::vector<Evt *>::const_iterator &it) :
-                    std::vector<Evt *>::const_iterator(it) {}
+            const_iterator(const std::vector<Evt *>::const_iterator &it) : std::vector<Evt *>::const_iterator(it) {}
         };
-
+        // 显式 c
         const_iterator cbegin() const { return const_iterator(tab.cbegin()); }
 
         const_iterator cend() const { return const_iterator(tab.cend()); }
@@ -131,35 +144,36 @@ namespace TIME {
 
         const_iterator end() const { return const_iterator(tab.end()); }
 
-
-        class reverse_iterator : public std::vector<Evt *>::reverse_iterator {
+        class reverse_iterator : public std::vector<Evt *>::reverse_iterator
+        {
         public:
-            Evt &operator*() const {
+            Evt &operator*() const
+            {
                 return *std::vector<Evt *>::reverse_iterator::operator*();
             }
 
         private:
             friend class Agenda;
 
-            reverse_iterator(const std::vector<Evt *>::reverse_iterator &it) :
-                    std::vector<Evt *>::reverse_iterator(it) {}
+            reverse_iterator(const std::vector<Evt *>::reverse_iterator &it) : std::vector<Evt *>::reverse_iterator(it) {}
         };
 
         reverse_iterator rbegin() { return reverse_iterator(tab.rbegin()); }
 
         reverse_iterator rend() { return reverse_iterator(tab.rend()); }
 
-        class const_reverse_iterator : public std::vector<Evt *>::const_reverse_iterator {
+        class const_reverse_iterator : public std::vector<Evt *>::const_reverse_iterator
+        {
         public:
-            const Evt &operator*() const {
+            const Evt &operator*() const
+            {
                 return *std::vector<Evt *>::const_reverse_iterator::operator*();
             }
 
         private:
             friend class Agenda;
 
-            const_reverse_iterator(const std::vector<Evt *>::const_reverse_iterator &it) :
-                    std::vector<Evt *>::const_reverse_iterator(it) {}
+            const_reverse_iterator(const std::vector<Evt *>::const_reverse_iterator &it) : std::vector<Evt *>::const_reverse_iterator(it) {}
         };
 
         const_reverse_iterator crbegin() const { return const_reverse_iterator(tab.crbegin()); }
@@ -169,7 +183,6 @@ namespace TIME {
         const_reverse_iterator rbegin() const { return const_reverse_iterator(tab.rbegin()); }
 
         const_reverse_iterator rend() const { return const_reverse_iterator(tab.rend()); }
-
 
         Agenda() = default;
 
@@ -186,4 +199,4 @@ namespace TIME {
 
 std::ostream &operator<<(std::ostream &, const TIME::Evt &);
 
-#endif //CPP_EVENEMENT_H
+#endif // CPP_EVENEMENT_H
