@@ -108,19 +108,31 @@ namespace TIME
 
     class Agenda
     {
-        std::vector<Evt *> tab;
+        std::vector<Evt *> tab; // 存储事件指针的动态数组：使用指针实现多态、可存储不同类型的事件
 
     public:
         Agenda() = default;
 
-        virtual ~Agenda(); // destructeur par défaut virtuel
-        Agenda(const Agenda &) = delete;
+        virtual ~Agenda(); // 基类的析构都要 virtual
 
+        // 禁止拷贝构造和赋值，防止浅拷贝导致的指针问题
+        Agenda(const Agenda &) = delete;
         Agenda &operator=(const Agenda &) = delete;
 
-        Agenda &operator<<(Evt &e);
+        // 重载<<添加事件：存储时间的地址
+        Agenda &operator<<(Evt &e)
+        {
+            tab.push_back(&e);
+            return *this;
+        };
 
-        void afficher(std::ostream &f = std::cout) const;
+        void afficher(std::ostream &f = std::cout) const
+        {
+            for (unsigned int i = 0; i < tab.size(); i++)
+            {
+                tab[i]->afficher(f); // 迭代、调用各自的 afficher
+            }
+        };
     };
 }
 
