@@ -118,6 +118,7 @@ namespace TIME
             iterator(const std::vector<Evt *>::iterator &it) : std::vector<Evt *>::iterator(it) {}
         };
 
+        // 暴露方法（内部使用的私密的构造器
         iterator begin() { return iterator(tab.begin()); }
 
         iterator end() { return iterator(tab.end()); }
@@ -130,11 +131,12 @@ namespace TIME
             {
                 return *std::vector<Evt *>::const_iterator::operator*();
             }
-            // 注意 const
+
         private:
             friend class Agenda;
             const_iterator(const std::vector<Evt *>::const_iterator &it) : std::vector<Evt *>::const_iterator(it) {}
         };
+        // 注意 const
         // 显式 c
         const_iterator cbegin() const { return const_iterator(tab.cbegin()); }
 
