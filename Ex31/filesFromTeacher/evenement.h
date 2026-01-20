@@ -87,10 +87,11 @@ namespace TIME
         */
         Rdv &operator=(const Rdv &r) // const 确保 r 不会被修改
         {
+            // 可以加一句 if (this != &r)
             Evt1jDur *x = this; // 由于 Rdv 继承自父类 Evt1jDur ，所以向上调整是安全的
             *x = r;             // 只复制父类部分
-                                // 复制子类部分
-                                // 或者通过 Evt1jDur::operator=(r); 显式调用父类赋值
+                                // 上面两句或者通过 Evt1jDur::operator=(r); 显式调用父类赋值
+            // 复制子类部分
             personne = r.personne;
             lieu = r.lieu;
             return *this; // 返回引用
