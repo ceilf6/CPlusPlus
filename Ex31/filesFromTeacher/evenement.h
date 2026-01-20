@@ -81,13 +81,19 @@ namespace TIME
             const std::string &p, const std::string &l) : Evt1jDur(d, s, h, dur),
                                                           personne(p), lieu(l) {}
 
-        Rdv &operator=(const Rdv &r)
+        /*
+        C++中this一般指向调用该函数的对象
+        这里 = 操作符的重载就是需要将 r 赋值到 this 上
+        */
+        Rdv &operator=(const Rdv &r) // const 确保 r 不会被修改
         {
-            Evt1jDur *x = this;
-            *x = r; // recopie de la partie Evt1jDur
+            Evt1jDur *x = this; // 由于 Rdv 继承自父类 Evt1jDur ，所以向上调整是安全的
+            *x = r;             // 只复制父类部分
+                                // 复制子类部分
+                                // 或者通过 Evt1jDur::operator=(r); 显式调用父类赋值
             personne = r.personne;
             lieu = r.lieu;
-            return *this;
+            return *this; // 返回引用
         }
 
         Rdv(const Rdv &r) : Evt1jDur(r), personne(r.personne), lieu(r.lieu) {}
