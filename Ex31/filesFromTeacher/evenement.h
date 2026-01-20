@@ -113,7 +113,13 @@ namespace TIME
     public:
         Agenda() = default;
 
-        virtual ~Agenda(); // 基类的析构都要 virtual
+        virtual ~Agenda()
+        {
+            for (Evt *evt : tab)
+            {
+                delete evt;
+            }
+        }; // 基类的析构都要 virtual
 
         // 禁止拷贝构造和赋值，防止浅拷贝导致的指针问题
         Agenda(const Agenda &) = delete;
