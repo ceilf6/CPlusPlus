@@ -51,3 +51,56 @@ public:
     }
 };
 ```
+
+3. L 里氏替换
+./LSP.md
+用父类的地方换成子类也能工作
+
+4. I 接口隔离
+语义化
+```
+class Worker {
+public:
+    virtual void work() = 0;
+    virtual void eat() = 0;
+};
+```
+=>
+```
+class Workable {
+public:
+    virtual void work() = 0;
+};
+
+class Eatable {
+public:
+    virtual void eat() = 0;
+};
+```
+
+5. D - 依赖倒置
+```
+class MySQLDatabase {};
+class UserService {
+    MySQLDatabase db;
+};
+```
+=>
+```
+class Database {
+public:
+    virtual void save() = 0;
+};
+
+class MySQLDatabase : public Database {
+public:
+    void save() override {}
+};
+
+class UserService {
+    Database& db;
+public:
+    UserService(Database& db) : db(db) {}
+};
+```
+这样后面随便换数据库类型，只要其基类是 Database
