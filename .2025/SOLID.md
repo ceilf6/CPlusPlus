@@ -24,3 +24,30 @@ public:
     void print(const User& user);
 }
 ```
+
+
+2. Open 开闭原则
+open to extention, close to modification
+增加功能时，尽量新增代码，而不是修改旧代码
+```
+class Shape {
+public:
+    enum Type { Circle, Rectangle } type;
+};
+```
+=>
+```
+class Shape {
+public:
+    virtual double area() const = 0;
+    virtual ~Shape() = default;
+};
+
+class Circle : public Shape {
+public:
+    double radius;
+    double area() const override {
+        return 3.14 * radius * radius;
+    }
+};
+```
