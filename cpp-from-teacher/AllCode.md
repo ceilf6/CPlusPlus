@@ -511,36 +511,3 @@ Document (abstract)
 StatCollector<T> (abstract)
   └── PredicateCounter<T, Predicate>
 ```
-
----
-
-## 使用示例
-
-### 示例 1：使用 TransformerIterator
-```cpp
-vector<Document*> docs = { /* ... */ };
-
-// 创建转换迭代器
-TransformerIterator<vector<Document*>, UppercaseTransformer>
-    it(docs, UppercaseTransformer());
-
-// 遍历并输出转换结果
-while (it.goodbon()) {
-    cout << *it << endl;  // 自动调用 transformer(*current)
-    ++it;
-}
-```
-
-### 示例 2：使用 StatCollectorIterator
-```cpp
-// 创建统计迭代器
-StatCollectorIterator<vector<Document*>> statIt(docs);
-
-// 统计 TextDocument 数量
-PredicateCounter<Document, IsA<TextDocument>>
-    counter(IsA<TextDocument>{});
-
-// 运行统计
-statIt.run(counter);
-cout << "Count: " << counter.getCount() << endl;
-```
