@@ -7,7 +7,7 @@ using namespace TD;
 
 namespace AO
 {
-    // adapteur d’objet 对象适配器
+    // 对象适配器
     template <class T, class CONT = Vector<T>>
     class Stack
     {
@@ -16,7 +16,7 @@ namespace AO
     public:
         class iterator
         {
-            // Le type : type de l'iterateur du contenur dont on fait une composition
+            // 类型：我们进行组合的容器的迭代器类型
             typename CONT::iterator courant;
 
         public:
@@ -43,7 +43,7 @@ namespace AO
 
         class const_iterator
         {
-            // Le type : type de l'iterateur du contenur dont on fait une composition
+            // 类型：我们进行组合的容器的迭代器类型
             typename CONT::const_iterator courant;
 
         public:
@@ -82,14 +82,14 @@ namespace AO
 }
 
 namespace AC
-{ // adapteur de classe
+{ // 类适配器
     template <class T, class CONT = Vector<T>>
     class Stack : private CONT
     {
     public:
         class iterator : public CONT::iterator
         {
-            // Le type : type de l'iterateur du contenur dont on fait une composition
+            // 类型：我们进行组合的容器的迭代器类型
             typename CONT::iterator courant;
 
         public:
@@ -102,7 +102,7 @@ namespace AC
 
         class const_iterator : public CONT::const_iterator
         {
-            // Le type : type de l'iterateur du contenur dont on fait une composition
+            // 类型：我们进行组合的容器的迭代器类型
             typename CONT::const_iterator courant;
 
         public:
@@ -120,8 +120,8 @@ namespace AC
         T &top() { return CONT::back(); }
         // bool empty() const { return CONT::empty(); }
         // void clear() { CONT::clear(); }
-        using CONT::clear; // On recupere le methode clear de la class CONT
-        using CONT::empty; // On recupere la methode empty de la class CONT
+        using CONT::clear; // 我们获取 CONT 类的 clear 方法
+        using CONT::empty; // 我们获取 CONT 类的 empty 方法
     };
 }
 

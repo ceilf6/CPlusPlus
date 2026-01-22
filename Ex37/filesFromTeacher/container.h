@@ -11,7 +11,7 @@ namespace TD
 
     class ContainerException : public exception
     {
-    protected: // remplacer private par protected
+    protected: // 将 private 替换为 protected
         string info;
 
     public:
@@ -24,32 +24,21 @@ namespace TD
     class Container
     {
     protected:
-        unsigned int nb; // Nombre d'elements dans le conteneur
+        unsigned int nb; // 容器中的元素数量
 
     public:
         Container(unsigned int nb) : nb(nb) {}
         virtual ~Container() {}
 
-        // Methodes concretes pures (car on a tres probablement pas besoin de redefinir plus tard !)
+        // 具体方法（因为我们很可能不需要在之后重新定义！）
         unsigned int size() const { return nb; }
-        bool empty() const
-        {
-            if (nb == 0)
-            {
-                return true;
-            }
-            else
-            {
-                return false;
-            }
-        }
+        bool empty() const { return nb == 0; }
 
-        // Methodes virtuelles pures ��OBLIGEES de redefinir pour avoir une classe concrete !)
-        virtual T &element(unsigned int i) = 0; // Obliger de redfinir dans classes derivees
+        // 纯虚方法（必须重新定义才能得到具体类！）
+        virtual T &element(unsigned int i) = 0; // 必须在派生类中重新定义
         virtual const T &element(unsigned int i) const = 0;
 
-        // Methodes virtuelles "simples" (On peut ou pas redefinir plus tard ... On peut garder
-        // le code d'origine ....)
+        // "简单"虚方法（可以选择是否在之后重新定义...可以保留原始代码...）
         virtual T &front();
         virtual const T &front() const;
         virtual T &back();
@@ -58,7 +47,7 @@ namespace TD
         virtual void push_back(const T &x) = 0;
         virtual void pop_back() = 0;
 
-        // Methode concrete ou virtual simple : au choix !
+        // 具体方法或简单虚方法：可选！
         void clear()
         {
             while (!empty())
@@ -69,15 +58,15 @@ namespace TD
     };
 }
 
-// On peut utiliser la methode "element", meme si on a pas definit cette methode, car on connait son comportement
-// En effet, on sait que la methode "element" permet de recuperer une reference d'un element a la position i
+// 我们可以使用 "element" 方法，即使我们还没有定义这个方法，因为我们知道它的行为
+// 实际上，我们知道 "element" 方法允许获取位置 i 处元素的引用
 template <class T>
 T &TD::Container<T>::front()
 {
     if (!empty())
         return element(0);
     else
-        throw ContainerException("Conteneur vide");
+        throw ContainerException("容器为空");
 }
 
 template <class T>
@@ -86,7 +75,7 @@ const T &TD::Container<T>::front() const
     if (!empty())
         return element(0);
     else
-        throw ContainerException("Conteneur vide");
+        throw ContainerException("容器为空");
 }
 
 template <class T>
@@ -95,7 +84,7 @@ T &TD::Container<T>::back()
     if (!empty())
         return element(nb - 1);
     else
-        throw ContainerException("Conteneur vide");
+        throw ContainerException("容器为空");
 }
 
 template <class T>
@@ -104,7 +93,7 @@ const T &TD::Container<T>::back() const
     if (!empty())
         return element(nb - 1);
     else
-        throw ContainerException("Conteneur vide");
+        throw ContainerException("容器为空");
 }
 
 #endif // CPP_LO02_CONTAINER_H
