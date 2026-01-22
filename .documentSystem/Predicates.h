@@ -37,7 +37,7 @@ public:
 
         std::istringstream iss(td->content());
         std::string word;
-        while (iss >> word)
+        while (iss >> word) // >> 提取到下一个空白字符，即提取一个单词
             ++totalWords;
     }
 
