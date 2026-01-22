@@ -80,6 +80,9 @@ namespace TD
         // 添加运算符 [] 以直接访问容器的元素
         T &operator[](unsigned int i) { return tab[i]; }
         const T &operator[](unsigned int i) const { return tab[i]; }
+
+        // 使用迭代器计算大于x的元素个数
+        unsigned int countGreaterThan(const T &x) const;
     };
 }
 
@@ -182,6 +185,22 @@ void TD::Vector<T>::pop_back()
     }
     else
         throw ContainerException("错误 Vector :: Vector 为空");
+}
+
+// 使用迭代器计算大于x的元素个数
+template <class T>
+unsigned int TD::Vector<T>::countGreaterThan(const T &x) const
+{
+    unsigned int count = 0;
+    // 使用const_iterator遍历容器
+    for (const_iterator it = cbegin(); it != cend(); ++it)
+    {
+        if (*it > x)
+        {
+            count++;
+        }
+    }
+    return count;
 }
 
 #endif // VECTOR_H_INCLUDED

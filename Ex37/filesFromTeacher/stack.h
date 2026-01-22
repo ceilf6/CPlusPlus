@@ -78,6 +78,21 @@ namespace AO
 
         bool empty() const { return cont.empty(); }
         void clear() { cont.clear(); }
+
+        // 使用迭代器计算大于x的元素个数
+        unsigned int countGreaterThan(const T &x) const
+        {
+            unsigned int count = 0;
+            // 使用const_iterator遍历容器
+            for (const_iterator it = cbegin(); it != cend(); ++it)
+            {
+                if (*it > x)
+                {
+                    count++;
+                }
+            }
+            return count;
+        }
     };
 }
 
@@ -110,8 +125,8 @@ namespace AC
             const_iterator(typename CONT::const_iterator c) : courant(c) {}
         };
 
-        const_iterator cbegin() const { return const_iterator(CONT::begin()); }
-        const_iterator cend() const { return const_iterator(CONT::end()); }
+        const_iterator cbegin() const { return const_iterator(CONT::cbegin()); }
+        const_iterator cend() const { return const_iterator(CONT::cend()); }
 
         Stack() : CONT(0) {}
         void push(const T &x) { CONT::push_back(x); }
@@ -122,6 +137,23 @@ namespace AC
         // void clear() { CONT::clear(); }
         using CONT::clear; // 我们获取 CONT 类的 clear 方法
         using CONT::empty; // 我们获取 CONT 类的 empty 方法
+
+        // 使用迭代器计算大于x的元素个数
+        unsigned int countGreaterThan(const T &x) const
+        {
+            unsigned int count = 0;
+            // 使用const_iterator遍历容器
+            for (const_iterator it = cbegin(); it != cend(); ++it)
+            {
+                if (*it > x)
+                {
+                    count++;
+                }
+            }
+            return count;
+        }
+
+        // 或者直接 using CONT::countGreaterThan;
     };
 }
 
